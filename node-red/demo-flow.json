@@ -1,0 +1,255 @@
+[
+    {
+        "id": "b098ea75bdee2c5c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8c513fbea462488d",
+        "type": "junction",
+        "z": "b098ea75bdee2c5c",
+        "x": 380,
+        "y": 540,
+        "wires": [
+            [
+                "49b225afc3a55c54",
+                "f1a93fd9414fdc25",
+                "fab116f078817472"
+            ]
+        ]
+    },
+    {
+        "id": "7a2b86c5c78142d9",
+        "type": "websocket out",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "server": "1aa7e034c30b0196",
+        "client": "",
+        "x": 770,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5ba50c5364e9d491",
+        "type": "websocket in",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "server": "1aa7e034c30b0196",
+        "client": "",
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "e3accd48e884c741"
+            ]
+        ]
+    },
+    {
+        "id": "e3accd48e884c741",
+        "type": "debug",
+        "z": "b098ea75bdee2c5c",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b50a0bd42dbe1980",
+        "type": "inject",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/scale",
+        "payload": "200",
+        "payloadType": "str",
+        "x": 200,
+        "y": 500,
+        "wires": [
+            [
+                "8c513fbea462488d"
+            ]
+        ]
+    },
+    {
+        "id": "e566f77bd3779765",
+        "type": "inject",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/scale",
+        "payload": "1200",
+        "payloadType": "num",
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "8c513fbea462488d"
+            ]
+        ]
+    },
+    {
+        "id": "ea96cb7e4b5a827c",
+        "type": "udp out",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "addr": "localhost",
+        "iface": "",
+        "port": "8888",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 810,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "49b225afc3a55c54",
+        "type": "osc",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "path": "",
+        "metadata": false,
+        "x": 530,
+        "y": 540,
+        "wires": [
+            [
+                "ea96cb7e4b5a827c"
+            ]
+        ]
+    },
+    {
+        "id": "f1a93fd9414fdc25",
+        "type": "change",
+        "z": "b098ea75bdee2c5c",
+        "name": "Format for websocket",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.topic & ' ' & msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 460,
+        "wires": [
+            [
+                "7a2b86c5c78142d9",
+                "10f3811f0304b3ba"
+            ]
+        ]
+    },
+    {
+        "id": "10f3811f0304b3ba",
+        "type": "debug",
+        "z": "b098ea75bdee2c5c",
+        "name": "Debug WS",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "fab116f078817472",
+        "type": "mqtt out",
+        "z": "b098ea75bdee2c5c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d0e8f78c55f25de9",
+        "x": 530,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1aa7e034c30b0196",
+        "type": "websocket-listener",
+        "path": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "d0e8f78c55f25de9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
